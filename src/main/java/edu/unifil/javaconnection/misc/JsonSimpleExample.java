@@ -1,48 +1,48 @@
 package edu.unifil.javaconnection.misc;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
-import org.json.simple.JSONArray;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JsonSimpleExample {
-     public static void main(String[] args) {
+    
+    public static final String USER_NAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String URL = "url";
+    public static final String DATABASE = "database";
+    public static final String PORT = "port";
+    
+    public static HashMap<String, String> getDataConnection() {
+        HashMap<String, String> data = new HashMap<>();
+        
+        JSONParser parser = new JSONParser();
 
-	JSONParser parser = new JSONParser();
+        Object obj;
+        try {
+            obj = parser.parse(new FileReader("config/config.json"));
 
-	try {
+            JSONObject jsonObject = (JSONObject) obj;
 
-		Object obj = parser.parse(new FileReader("config/config.json"));
+            data.put(USER_NAME, (String) jsonObject.get(USER_NAME));
+            data.put(PASSWORD, (String) jsonObject.get(PASSWORD));
+            data.put(URL, (String) jsonObject.get(URL));
+            data.put(DATABASE, (String) jsonObject.get(DATABASE));
+            data.put(PORT, (String) jsonObject.get(PORT));
+          
+        } catch (IOException ex) {
+            Logger.getLogger(JsonSimpleExample.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(JsonSimpleExample.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-		JSONObject jsonObject = (JSONObject) obj;
+        
+        return data;
+    }
 
-		String username = (String) jsonObject.get("username");
-		System.out.println(username);
-
-		String password = (String) jsonObject.get("password");
-		System.out.println(password);
-                
-                String url = (String) jsonObject.get("url");
-		System.out.println(url);
-
-		String database = (String) jsonObject.get("database");
-		System.out.println(database);
-                
-                String port = (String) jsonObject.get("port");
-		System.out.println(port);
-
-	} catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
-
-     }
 
 }

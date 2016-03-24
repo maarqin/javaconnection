@@ -5,6 +5,8 @@
  */
 package edu.unifil.javaconnection.views;
 
+import edu.unifil.javaconnection.models.Pessoa;
+
 /**
  *
  * @author mhadaniya
@@ -16,6 +18,9 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -56,6 +61,11 @@ public class Main extends javax.swing.JFrame {
         lbEmail.setText("E-mail:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         tablePessoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,6 +187,15 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Pessoa p = new Pessoa();
+        
+        p.setNome(txtNome.getText());
+        p.setEmail(txtEmail.getText());
+        p.setIdade(Integer.parseInt(txtIdade.getText()));
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
